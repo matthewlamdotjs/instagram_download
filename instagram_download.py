@@ -1,4 +1,6 @@
-# Download an instagram image from its page's URL
+# Instagram Download
+# download an instagram image from its page's URL
+# Matthew Lam 2018
 
 import urllib2
 from bs4 import BeautifulSoup
