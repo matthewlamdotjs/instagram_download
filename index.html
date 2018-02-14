@@ -12,9 +12,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
     function getImage(){
-      let img = scrape(document.getElementById("img-url").value);
-      document.getElementById("download-link").href = img;
-      document.getElementById("download-link").innerHTML = "Click here to download your image!";
+      let imgUrl = document.getElementById("img-url").value;
+      if(imgUrl.length > 0){
+        let img = scrape(document.getElementById("img-url").value);
+        if(img.length > 0){
+          document.getElementById("download-link").href = img;
+          document.getElementById("download-link").innerHTML = "Click here to download your image!";
+        }
+        else{
+          alert("Please use a valid URL!")
+        }
+      }
+      else{
+        alert("Please provide a URL!");
+      }
     }
   </script>
 </head>
