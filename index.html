@@ -14,20 +14,22 @@
     function getImage(){
       let img = scrape(document.getElementById("img-url").value);
       document.getElementById("download-link").href = img;
-      document.getElementById("download-link").innerHTML = "Click to download!";
+      document.getElementById("download-link").innerHTML = "Click here to download your image!";
     }
   </script>
 </head>
 <body>
-<div align="center">
-  <h1 style="margin-top:100px">Instagram Photo Downloader</h1>
-  <form>
-    <input id="img-url" type="text" placeholder="URL">
-    <input type="button" value="get download link!" onclick="getImage()">
-    <input type="button" value="reset" onclick="location.reload(true)">
-  </form>
-  <br>
-  <a id="download-link" href="#" download></a>
-</div>
+  <div align="center">
+    <h1 style="margin-top:100px">Instagram Photo Downloader</h1>
+    <img src="img/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png">
+    <form>
+      <input id="img-url" type="text" placeholder="URL">
+      <input type="button" value="get download link!" onclick="getImage()">
+      <input type="button" value="reset" onclick="location.reload(true)">
+    </form>
+    <br>
+    <a id="download-link" href="#" download></a>
+  </div>
+  <div style="position: absolute; bottom: 5px; right:20px;"><p>Written by Matthew Lam, 2018</p></div>
 </body>
 </html>
