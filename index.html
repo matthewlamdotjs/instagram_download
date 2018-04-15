@@ -16,8 +16,34 @@
       if(imgUrl.length > 0){
         let img = scrape(document.getElementById("img-url").value);
         if(img.length > 0){
-          document.getElementById("download-link").href = img;
-          document.getElementById("download-link").innerHTML = "Click here to download your image!";
+          //document.getElementById("download-link").href = img;
+          //document.getElementById("download-link").innerHTML = "Click here to download your image!";
+
+          //Workaround for spring 2018 depreciation of download attribute for anchor tags
+          //found @ https://stackoverflow.com/questions/17527713/force-browser-to-download-image-files-on-click/49836565#49836565
+          var image = new Image();
+          image.crossOrigin = "anonymous";
+          image.src = img;
+// get file name - you might need to modify this if your image url doesn't contain a file extension otherwise you can set the file name manually
+          var fileName = image.src.split(/(\\|\/)/g).pop();
+          image.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+            canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+            canvas.getContext('2d').drawImage(this, 0, 0);
+            var blob;
+            // ... get as Data URI
+            if (image.src.indexOf(".jpg") > -1) {
+              blob = canvas.toDataURL("image/jpeg");
+            } else if (image.src.indexOf(".png") > -1) {
+              blob = canvas.toDataURL("image/png");
+            } else if (image.src.indexOf(".gif") > -1) {
+              blob = canvas.toDataURL("image/gif");
+            } else {
+              blob = canvas.toDataURL("image/png");
+            }
+            $("#download-link").html("<b>Click image to download.</b><br><a download='" + fileName + "' href='" + blob + "'><img src='" + blob + "'/></a>");
+          };
         }
         else{
           alert("Please use a valid URL!")
@@ -39,7 +65,7 @@
       <input type="button" value="reset" onclick="location.reload(true)">
     </form>
     <br>
-    <a id="download-link" href="#" download></a>
+    <div id="download-link"></div>
   </div>
   <div style="position: absolute; bottom: 5px; right:20px;"><p>Written by Matthew Lam, 2018</p></div>
 </body>
